@@ -4,7 +4,7 @@
 	let col = 10;
 </script>
 
-<div class="flex flex-col items-center justify-center w-full h-screen p-4 bg-black">
+<div class="flex flex-col items-center justify-center w-full h-[100dvh] p-4 bg-black">
 	<h1 class="mb-auto text-lg font-bold text-white">Conway's game of life</h1>
 	{#key [row, col]}
 		<Table {row} {col} />
