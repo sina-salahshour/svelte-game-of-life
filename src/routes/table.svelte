@@ -69,9 +69,13 @@
 	{/each}
 </div>
 
-<div class="flex gap-4 mt-auto text-white">
-	<button on:click={nextFrame}>next</button>
+<div class="flex flex-col gap-1 my-auto leading-10 text-white w-28">
 	<button
+		class="px-4 transition bg-white rounded-md bg-opacity-20 active:scale-95 active:bg-opacity-40 hover:scale-105 hover:bg-opacity-10"
+		on:click={nextFrame}>next</button
+	>
+	<button
+		class="px-4 transition bg-white rounded-md bg-opacity-20 active:scale-95 active:bg-opacity-40 hover:scale-105 hover:bg-opacity-10"
 		on:click={() => {
 			isPlay = !isPlay;
 		}}
