@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { add, set, store, subtract } from '$lib/stores/count.store';
+	import { add, countStore, set, subtract } from '$lib/stores/count.store';
 	import Count from './count.svelte';
 	import Table from './table.svelte';
 
-	$: count = $store.value;
+	$: count = $countStore.value;
 </script>
 
 <div class="grid grid-cols-[repeat(20,_minmax(0,_1fr))] m-1 w-fit gap-[2px]">

@@ -1,5 +1,5 @@
 <script>
-	import { add, set, store, subtract } from '$lib/stores/count.store';
+	import { add, set, countStore, subtract } from '$lib/stores/count.store';
 </script>
 
-<h2>{$store.value}</h2>
+<h2>{$countStore.value}</h2>
