@@ -64,7 +64,7 @@
 >
 	{#each createFakeArray(row) as rowIndex}
 		{#each createFakeArray(col) as colIndex}
-			<Cell {rowIndex} {colIndex} {tableData} />
+			<Cell {rowIndex} {colIndex} {tableData} {isPlay} />
 		{/each}
 	{/each}
 </div>
