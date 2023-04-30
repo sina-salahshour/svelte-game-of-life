@@ -50,10 +50,9 @@
 	let playInterval: number;
 
 	$: {
+		clearInterval(playInterval);
 		if (isPlay) {
-			playInterval = setInterval(nextFrame, 100);
-		} else {
-			clearInterval(playInterval);
+			playInterval = setInterval(nextFrame, 500);
 		}
 	}
 </script>

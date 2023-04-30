@@ -9,7 +9,7 @@
 	{#key [row, col]}
 		<Table {row} {col} />
 	{/key}
-	<div class="flex flex-col items-end gap-2">
+	<div class="flex flex-col items-end gap-2 m-4">
 		<label class="flex gap-2 text-white">
 			<h2>rows:</h2>
 			<input
