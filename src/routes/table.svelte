@@ -52,7 +52,7 @@
 	$: {
 		clearInterval(playInterval);
 		if (isPlay) {
-			playInterval = setInterval(nextFrame, 500);
+			playInterval = setInterval(nextFrame, 50);
 		}
 	}
 </script>
