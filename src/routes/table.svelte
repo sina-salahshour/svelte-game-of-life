@@ -59,14 +59,18 @@
 </script>
 
 <div
-	class="grid grid-cols-[repeat(var(--grid-cols),_minmax(0,_1fr))] m-1 w-fit gap-[2px] bg-white border-white border-x-2 border-y-2 rounded-md overflow-hidden"
-	style:--grid-cols={col}
+	class="max-w-full m-4 overflow-auto bg-white border-white rounded-md h-fit border-x-2 border-y-2"
 >
-	{#each createFakeArray(row) as rowIndex}
-		{#each createFakeArray(col) as colIndex}
-			<Cell {rowIndex} {colIndex} {tableData} {isPlay} />
+	<div
+		class="grid grid-cols-[repeat(var(--grid-cols),_minmax(0,_1fr))] w-fit gap-[2px] overflow-auto min-w-max min-h-max"
+		style:--grid-cols={col}
+	>
+		{#each createFakeArray(row) as rowIndex}
+			{#each createFakeArray(col) as colIndex}
+				<Cell {rowIndex} {colIndex} {tableData} {isPlay} />
+			{/each}
 		{/each}
-	{/each}
+	</div>
 </div>
 
 <div class="flex flex-col gap-1 my-auto leading-10 text-white w-28">
