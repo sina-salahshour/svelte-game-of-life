@@ -4,8 +4,6 @@
 
 <div
 	class="overflow-hidden transition rounded-md s-gradient active:scale-95 hover:scale-105"
-	style:--gradient-x={0}
-	style:--gradient-y={0}
 	bind:this={btn}
 >
 	<div class="w-full overflow-hidden rounded-md btn">
