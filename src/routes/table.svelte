@@ -2,6 +2,7 @@
 	import { createFakeArray } from '$lib/utils/create-fake-array.util';
 	import { writable } from 'svelte/store';
 	import Cell from './cell.svelte';
+	import GradientButton from '$lib/components/gradient-button.svelte';
 
 	export let row: number;
 	export let col: number;
@@ -73,16 +74,12 @@
 </div>
 
 <div class="flex flex-col gap-1 my-auto leading-10 text-white w-28">
-	<button
-		class="px-4 transition bg-white rounded-md bg-opacity-20 active:scale-95 active:bg-opacity-40 hover:scale-105 hover:bg-opacity-10"
-		on:click={nextFrame}>next</button
-	>
-	<button
-		class="px-4 transition bg-white rounded-md bg-opacity-20 active:scale-95 active:bg-opacity-40 hover:scale-105 hover:bg-opacity-10"
+	<GradientButton on:click={nextFrame}>next</GradientButton>
+	<GradientButton
 		on:click={() => {
 			isPlay = !isPlay;
 		}}
 	>
 		{isPlay ? 'pause' : 'play'}
-	</button>
+	</GradientButton>
 </div>
