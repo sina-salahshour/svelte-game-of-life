@@ -1,19 +1,18 @@
 <script lang="ts">
-	import type { Writable } from 'svelte/store';
+	import { gameTable } from '$lib/stores/game-table.store';
 
-	export let tableData: Writable<boolean[][]>;
 	export let rowIndex: number;
 	export let colIndex: number;
 	export let isPlay: boolean;
 </script>
 
-{#key $tableData[rowIndex][colIndex]}
+{#key $gameTable[rowIndex][colIndex]}
 	<button
 		class="w-4 bg-black data-[active=true]:bg-white h-4 hover:bg-opacity-50 s-cell"
-		data-active={$tableData[rowIndex][colIndex]}
+		data-active={$gameTable[rowIndex][colIndex]}
 		data-is-play={isPlay}
 		on:click={() => {
-			$tableData[rowIndex][colIndex] = !$tableData[rowIndex][colIndex];
+			$gameTable[rowIndex][colIndex] = !$gameTable[rowIndex][colIndex];
 		}}
 	/>
 {/key}

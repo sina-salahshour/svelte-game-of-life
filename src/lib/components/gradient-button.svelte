@@ -1,10 +1,13 @@
-<script>
+<script lang="ts">
+	import { classNames } from '$lib/utils/class-names.util';
 	import HoverLightBorder from './hover-light-border.svelte';
+	let className: null | string = null;
+	export { className as class };
 </script>
 
 <button on:click>
 	<HoverLightBorder
-		class="transition rounded-md active:scale-95 hover:scale-105"
+		class={classNames('transition rounded-md active:scale-95 hover:scale-105', className)}
 		borderClass="rounded-md"
 		lightColor="#fff"
 		wrapperClass="bg-black"

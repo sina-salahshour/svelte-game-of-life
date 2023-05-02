@@ -1,8 +1,9 @@
 <script lang="ts">
 	import HoverLightBorder from '$lib/components/hover-light-border.svelte';
+	import { gameTableSize } from '$lib/stores/game-table.store';
 	import Table from './table.svelte';
-	let row = 10;
-	let col = 10;
+	$: row = $gameTableSize.row;
+	$: col = $gameTableSize.col;
 </script>
 
 <div class="flex flex-col items-center justify-center h-[100dvh] w-screen p-4 bg-black">
@@ -17,7 +18,7 @@
 				<input
 					class="p-1 bg-white rounded-sm outline-none bg-opacity-10"
 					type="number"
-					bind:value={row}
+					bind:value={$gameTableSize.row}
 					min={1}
 				/>
 			</HoverLightBorder>
@@ -28,7 +29,7 @@
 				<input
 					class="p-1 bg-white rounded-sm outline-none bg-opacity-10"
 					type="number"
-					bind:value={col}
+					bind:value={$gameTableSize.col}
 					min={1}
 				/>
 			</HoverLightBorder>

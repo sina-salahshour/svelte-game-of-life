@@ -1,15 +1,19 @@
 <script lang="ts">
 	import { createFakeArray } from '$lib/utils/create-fake-array.util';
-	import { writable } from 'svelte/store';
 	import Cell from './cell.svelte';
 	import GradientButton from '$lib/components/gradient-button.svelte';
+	import { gameTable } from '$lib/stores/game-table.store';
+	import SaveTableButton from './save-table-button.svelte';
+	import LoadTableButton from './load-table-button.svelte';
 
 	export let row: number;
 	export let col: number;
-	let tableData = writable(createFakeArray(row).map(() => createFakeArray(col).map(() => false)));
+	$: {
+		$gameTable = createFakeArray(row).map(() => createFakeArray(col).map(() => false));
+	}
 
 	function nextFrame() {
-		let data = $tableData;
+		let data = $gameTable;
 		let data2 = createFakeArray(row).map(() => createFakeArray(col).map(() => false));
 		data.forEach((row, rowIndex) =>
 			row.forEach((cellValue, colIndex) => {
@@ -45,7 +49,7 @@
 				}
 			})
 		);
-		$tableData = data2;
+		$gameTable = data2;
 	}
 	let isPlay = false;
 	let playInterval: number;
@@ -67,13 +71,13 @@
 	>
 		{#each createFakeArray(row) as rowIndex}
 			{#each createFakeArray(col) as colIndex}
-				<Cell {rowIndex} {colIndex} {tableData} {isPlay} />
+				<Cell {rowIndex} {colIndex} {isPlay} />
 			{/each}
 		{/each}
 	</div>
 </div>
 
-<div class="flex flex-col gap-1 my-auto leading-10 text-white w-28">
+<div class="grid w-40 grid-cols-2 gap-1 my-auto leading-10 text-white min-w-fit">
 	<GradientButton on:click={nextFrame}>next</GradientButton>
 	<GradientButton
 		on:click={() => {
@@ -82,4 +86,6 @@
 	>
 		{isPlay ? 'pause' : 'play'}
 	</GradientButton>
+	<SaveTableButton />
+	<LoadTableButton />
 </div>
