@@ -58,6 +58,8 @@
 	let playInterval: number;
 
 	$: {
+		row;
+		col;
 		clearInterval(playInterval);
 		if (isPlay) {
 			playInterval = setInterval(nextFrame, 50);
