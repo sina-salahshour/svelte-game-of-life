@@ -8,10 +8,8 @@
 	lightColor="#fff"
 	wrapperClass="bg-black"
 >
-	<div class="w-full wrapper">
-		<button
-			class="w-full px-4 overflow-hidden transition bg-white bg-opacity-20 active:bg-opacity-40 hover:bg-opacity-10"
-			on:click><slot /></button
-		>
-	</div>
+	<button
+		class="w-full px-4 overflow-hidden transition bg-white bg-opacity-20 active:bg-opacity-40 hover:bg-opacity-10"
+		on:click><slot /></button
+	>
 </HoverLightBorder>

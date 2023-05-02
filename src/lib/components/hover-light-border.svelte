@@ -20,7 +20,7 @@
 >
 	<div class={classNames('w-[inherit] h-[inherit] overflow-hidden s-gradient-border', borderClass)}>
 		{#if wrapperClass}
-			<div class={wrapperClass}>
+			<div class={classNames(wrapperClass, 'w-[inherit] h-[inherit]')}>
 				<slot />
 			</div>
 		{:else}
