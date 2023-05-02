@@ -11,6 +11,9 @@
 	function setEmptyTable(row: number, col: number) {
 		$gameTable = createFakeArray(row).map(() => createFakeArray(col).map(() => false));
 	}
+	function pauseGame() {
+		isPlay = !isPlay;
+	}
 	$: {
 		setEmptyTable(row, col);
 	}
@@ -84,13 +87,9 @@
 
 <div class="grid w-40 grid-cols-2 gap-1 my-auto leading-10 text-white min-w-fit">
 	<GradientButton on:click={nextFrame}>next</GradientButton>
-	<GradientButton
-		on:click={() => {
-			isPlay = !isPlay;
-		}}
-	>
+	<GradientButton on:click={pauseGame}>
 		{isPlay ? 'pause' : 'play'}
 	</GradientButton>
 	<SaveTableButton />
-	<LoadTableButton />
+	<LoadTableButton on:load={pauseGame} />
 </div>

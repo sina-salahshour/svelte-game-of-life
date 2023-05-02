@@ -1,7 +1,13 @@
 <script lang="ts">
 	import GradientButton from '$lib/components/gradient-button.svelte';
 	import { gameTable, gameTableSize } from '$lib/stores/game-table.store';
-	import { tick } from 'svelte';
+	import { createEventDispatcher, tick } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	function onLoad() {
+		dispatch('load', {});
+	}
 
 	let files: FileList;
 	let fileRef: HTMLInputElement;
@@ -21,4 +27,9 @@
 </script>
 
 <input type="file" bind:files class="hidden" bind:this={fileRef} accept=".gol" />
-<GradientButton on:click={() => fileRef.click()}>load</GradientButton>
+<GradientButton
+	on:click={() => {
+		onLoad();
+		fileRef.click();
+	}}>load</GradientButton
+>
