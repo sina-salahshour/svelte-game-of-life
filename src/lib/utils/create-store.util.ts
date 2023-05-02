@@ -2,6 +2,7 @@ import { writable } from 'svelte/store';
 import { produce, type Draft } from 'immer';
 
 type Args<T> = T extends (...args: [...infer R]) => void ? R : never;
+type undefinedArgsToNoArgs<T> = Args<T> extends [undefined] ? () => void : T;
 
 function createReducer<P>(type: string) {
 	return function (payload: P) {
@@ -45,7 +46,9 @@ export function createStore<
 				(payload: unknown) => dispatch(reducer(payload))
 			])
 		) as {
-			[K in keyof typeof reducers]: (payload: Args<(typeof reducers)[K]>[1]) => void;
+			[K in keyof typeof reducers]: undefinedArgsToNoArgs<
+				(payload: Args<(typeof reducers)[K]>[1]) => void
+			>;
 		}
 	};
 }

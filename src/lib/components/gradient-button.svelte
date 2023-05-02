@@ -3,11 +3,12 @@
 	import HoverLightBorder from './hover-light-border.svelte';
 	let className: null | string = null;
 	export { className as class };
+	export let type: 'button' | 'submit' | 'reset' | null | undefined = null;
 </script>
 
-<button on:click>
+<button on:click {type} class={className}>
 	<HoverLightBorder
-		class={classNames('transition rounded-md active:scale-95 hover:scale-105', className)}
+		class={'transition rounded-md active:scale-95 hover:scale-105'}
 		borderClass="rounded-md"
 		lightColor="#fff"
 		wrapperClass="bg-black"
