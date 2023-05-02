@@ -6,6 +6,7 @@
 	class="transition rounded-md active:scale-95 hover:scale-105"
 	borderClass="rounded-md"
 	lightColor="#fff"
+	wrapperClass="bg-black"
 >
 	<div class="w-full wrapper">
 		<button
@@ -14,9 +15,3 @@
 		>
 	</div>
 </HoverLightBorder>
-
-<style lang="postcss">
-	.wrapper {
-		background-image: linear-gradient(black, black);
-	}
-</style>
