@@ -8,8 +8,11 @@
 
 	export let row: number;
 	export let col: number;
-	$: {
+	function setEmptyTable(row: number, col: number) {
 		$gameTable = createFakeArray(row).map(() => createFakeArray(col).map(() => false));
+	}
+	$: {
+		setEmptyTable(row, col);
 	}
 
 	function nextFrame() {
