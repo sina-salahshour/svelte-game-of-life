@@ -8,9 +8,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 import * as Sentry from '@sentry/svelte';
 import { Prisma } from '@prisma/client';
+import { getEnvs } from '$lib/server/env-loader';
+
+const { SENTRY_DSN } = getEnvs();
 
 Sentry.init({
-	dsn: process.env.SENTRY_DSN,
+	dsn: SENTRY_DSN,
 	integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
 	// Performance Monitoring
 	tracesSampleRate: 1.0, // Capture 100% of the transactions, reduce in production!

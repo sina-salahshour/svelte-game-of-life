@@ -11,4 +11,5 @@
 		<input type="password" id="password" name="password" /><br />
 		<input type="submit" value="Continue" />
 	</form>
+	<a href="/api/oauth/github">login with github</a>
 </div>
