@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const githubOauthCallBackParams = z.object({
+export const oauthCallBackParams = z.object({
 	code: z.string(),
 	state: z.string()
 });

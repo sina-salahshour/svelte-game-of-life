@@ -12,4 +12,5 @@
 		<input type="submit" value="Continue" />
 	</form>
 	<a href="/api/oauth/github">login with github</a>
+	<a href="/api/oauth/google">login with google</a>
 </div>
