@@ -18,26 +18,19 @@ export function authCallbackTemplate<A extends Auth<any>>(provider: OAuthProvide
 		// validate state
 		if (state !== storedState) throw new Response(null, { status: 401 });
 
-		try {
-			const { existingUser, providerUser, createUser } = await provider.validateCallback(code);
+		const { existingUser, providerUser, createUser } = await provider.validateCallback(code);
 
-			const getUser = async () => {
-				if (existingUser) return existingUser;
-				// create a new user if the user does not exist
-				return await createUser({
-					// attributes
-					username: providerUser.login
-				});
-			};
-			const user = await getUser();
-			const session = await auth.createSession(user.userId);
-			locals.auth.setSession(session);
-		} catch (e) {
-			// invalid code
-			return new Response(null, {
-				status: 500
+		const getUser = async () => {
+			if (existingUser) return existingUser;
+			// create a new user if the user does not exist
+			return await createUser({
+				// attributes
+				username: providerUser.login
 			});
-		}
+		};
+		const user = await getUser();
+		const session = await auth.createSession(user.userId);
+		locals.auth.setSession(session);
 		throw redirect(302, '/');
 	};
 	return GET;
