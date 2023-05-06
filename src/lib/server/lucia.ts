@@ -33,6 +33,6 @@ export const githubAuth = github(auth, {
 export const googleAuth = google(auth, {
 	clientId: GOOGLE_CLIENT_ID,
 	clientSecret: GOOGLE_CLIENT_SECRET,
-	redirectUri: `${WEBSITE_URL}/api/oauth/google/cb`
+	redirectUri: `${WEBSITE_URL}/api/oauth/cb/google`
 });
 export type Auth = typeof auth;
