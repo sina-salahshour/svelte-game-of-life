@@ -1,9 +1,9 @@
 import type { OAuthProvider } from '@lucia-auth/oauth';
+import type { RequestHandler } from '@sveltejs/kit';
 
-import type { RequestHandler } from './$types';
 import type { Auth } from 'lucia-auth';
 
-export function oauthTemplate<A extends Auth<any>>(provider: OAuthProvider<A>) {
+export function oauthTemplate<T extends OAuthProvider<any>>(provider: T) {
 	const GET: RequestHandler = async ({ cookies }) => {
 		// get url to redirect the user to, with the state
 		const [url, state] = await provider.getAuthorizationUrl();

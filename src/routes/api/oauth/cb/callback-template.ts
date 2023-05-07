@@ -1,11 +1,10 @@
 import { oauthCallBackParams } from '$lib/schemas/auth/oauth.schema';
 import { auth } from '$lib/server/lucia';
 import type { OAuthProvider } from '@lucia-auth/oauth';
-import { redirect } from '@sveltejs/kit';
+import { redirect, type RequestHandler } from '@sveltejs/kit';
 import type { Auth } from 'lucia-auth';
-import type { RequestHandler } from '../$types';
 
-export function authCallbackTemplate<A extends Auth<any>>(provider: OAuthProvider<A>) {
+export function authCallbackTemplate<T extends OAuthProvider<any>>(provider: T) {
 	const GET: RequestHandler = async ({ cookies, url, locals }) => {
 		// get code and state params from url
 		const { code, state } = oauthCallBackParams.parse({
