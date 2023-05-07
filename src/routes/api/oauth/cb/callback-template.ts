@@ -25,7 +25,7 @@ export function authCallbackTemplate<A extends Auth<any>>(provider: OAuthProvide
 			// create a new user if the user does not exist
 			return await createUser({
 				// attributes
-				username: providerUser.login
+				username: providerUser.login || providerUser.email
 			});
 		};
 		const user = await getUser();
