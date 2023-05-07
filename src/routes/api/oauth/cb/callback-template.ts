@@ -33,7 +33,7 @@ export function authCallbackTemplate<T extends OAuthProvider<any>>(provider: T) 
 			locals.auth.setSession(session);
 			throw redirect(302, '/');
 		} catch (err) {
-			return new Response(JSON.stringify(err));
+			return new Response((err as any)?.toString());
 		}
 	};
 	return GET;
