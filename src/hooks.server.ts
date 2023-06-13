@@ -12,9 +12,6 @@ export const handle = (async ({ event, resolve }) => {
 		throw redirect(StatusCodes.TEMPORARY_REDIRECT, routes.user.login);
 	}
 	const response = await resolve(event);
-	if (!pb.authStore.isValid && isRoutePrivate(event.url.pathname)) {
-		throw redirect(StatusCodes.TEMPORARY_REDIRECT, routes.user.login);
-	}
 	response.headers.set('set-cookie', pb.authStore.exportToCookie({ secure: false }));
 	return response;
 }) satisfies Handle;
