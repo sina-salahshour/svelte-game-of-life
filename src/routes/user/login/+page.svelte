@@ -17,7 +17,7 @@
 			method: 'POST',
 			body: JSON.stringify(resp)
 		});
-		invalidate(DependKeys.AUTH);
+		await invalidate(DependKeys.AUTH);
 	}
 	const auth_methods = pb
 		.collection('users')

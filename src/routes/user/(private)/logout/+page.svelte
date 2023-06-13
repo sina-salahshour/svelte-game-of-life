@@ -5,6 +5,6 @@
 
 	onMount(async () => {
 		await fetch('', { method: 'POST', body: new FormData() });
-		invalidate(DependKeys.AUTH);
+		await invalidate(DependKeys.AUTH);
 	});
 </script>
