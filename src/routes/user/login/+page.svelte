@@ -8,12 +8,11 @@
 	import Checkbox from './checkbox.svelte';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 	import passwordLoginSchema from '$lib/schemas/login/password-login.schema';
 
 	export let data: PageData;
 
-	const { form, enhance, errors, allErrors } = superForm(data.form, {
+	const { form, enhance, errors, allErrors, submitting } = superForm(data.form, {
 		validators: passwordLoginSchema
 	});
 
@@ -39,6 +38,7 @@
 		.collection('users')
 		.listAuthMethods()
 		.then((resp) => resp.authProviders.map((provider) => provider.name));
+	$: formLoading = loading || $submitting;
 </script>
 
 <div class="w-full min-h-[100dvh] bg-black bg-opacity-80 flex items-center justify-center">
@@ -61,8 +61,8 @@
 					type="button"
 					variant="outlined"
 					class="flex items-center justify-center gap-2 mb-5"
-					{loading}
-					disabled={loading}
+					loading={formLoading}
+					disabled={formLoading}
 				>
 					<img class="w-[25px] h-[25px]" src="/icons/google.png" alt="" />
 					Sign in with Google
@@ -109,7 +109,8 @@
 						>forgot password?</a
 					>
 				</div>
-				<Button {loading} disabled={loading || !!$allErrors.length}>Continue</Button>
+				<Button loading={formLoading} disabled={formLoading || !!$allErrors.length}>Continue</Button
+				>
 			</form>
 		</div>
 		<div class="flex-1 hidden lg:block">
