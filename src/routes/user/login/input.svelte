@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { classNames } from '$lib/utils/class-names.util';
+	import { blur, fade } from 'svelte/transition';
 
 	let className: string | undefined = undefined;
 	export let value = '';
@@ -23,7 +24,7 @@
 		data-error={String(!!error)}
 	/>
 	{#if error}
-		<div class="s-error">
+		<div in:blur out:fade class="s-error">
 			<img class="s-error-icon" src="/icons/error.png" alt="" />
 			{error}
 		</div>
