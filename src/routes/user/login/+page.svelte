@@ -13,7 +13,7 @@
 
 	export let data: PageData;
 
-	const { form, enhance, errors } = superForm(data.form, {
+	const { form, enhance, errors, allErrors } = superForm(data.form, {
 		validators: passwordLoginSchema
 	});
 
@@ -109,7 +109,7 @@
 						>forgot password?</a
 					>
 				</div>
-				<Button {loading} disabled={loading}>Continue</Button>
+				<Button {loading} disabled={loading || !!$allErrors.length}>Continue</Button>
 			</form>
 		</div>
 		<div class="flex-1 hidden lg:block">
