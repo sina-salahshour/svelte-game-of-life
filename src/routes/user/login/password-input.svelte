@@ -36,7 +36,7 @@
 		/>
 		<button class="s-toggle-visibility" type="button" on:click={toggle_type}
 			><img
-				src="/icons/toggle-visibility-hidden.png"
+				src="/icons/toggle-visibility-{visible ? 'hidden' : 'visible'}.png"
 				class="s-toggle-visibility-image"
 				alt=""
 			/></button
