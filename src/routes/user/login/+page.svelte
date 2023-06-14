@@ -85,7 +85,7 @@
 					class="mb-2"
 					name="email"
 					id="email"
-					placeholder="Enter your username"
+					placeholder="Enter your email"
 					bind:value={$form.email}
 					error={$errors.email?.join(' ')}
 				/>
