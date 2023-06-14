@@ -10,19 +10,38 @@
 	export { className as class };
 	export let required = false;
 	export let error = '';
+	let input: HTMLInputElement;
+	let visible = false;
+
+	$: {
+		if (input) input.type = visible ? 'text' : 'password';
+	}
+	function toggle_type() {
+		visible = !visible;
+	}
 </script>
 
 <div class={classNames(className, 's-wrapper')}>
-	<input
-		bind:value
-		class={'s-input'}
-		type="password"
-		{name}
-		{id}
-		{placeholder}
-		{required}
-		data-error={String(!!error)}
-	/>
+	<div class="s-input-wrapper">
+		<input
+			bind:this={input}
+			bind:value
+			class={'s-input'}
+			type="password"
+			{name}
+			{id}
+			{placeholder}
+			{required}
+			data-error={String(!!error)}
+		/>
+		<button class="s-toggle-visibility" type="button" on:click={toggle_type}
+			><img
+				src="/icons/toggle-visibility-hidden.png"
+				class="s-toggle-visibility-image"
+				alt=""
+			/></button
+		>
+	</div>
 	{#if error}
 		<div in:blur out:fade class="s-error">
 			<img class="s-error-icon" src="/icons/error.png" alt="" />
@@ -51,5 +70,18 @@
 	}
 	.s-error-icon {
 		@apply w-4 h-4;
+	}
+
+	.s-toggle-visibility {
+		@apply absolute right-4 top-1/2 -translate-y-1/2;
+		&:hover {
+			@apply bg-[#242424] rounded-md;
+		}
+	}
+	.s-toggle-visibility-image {
+		@apply w-[30px] h-[30px];
+	}
+	.s-input-wrapper {
+		@apply relative;
 	}
 </style>
