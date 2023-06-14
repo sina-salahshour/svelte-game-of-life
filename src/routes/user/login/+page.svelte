@@ -7,17 +7,23 @@
 	import { enhance } from '$app/forms';
 	import Input from './input.svelte';
 	import Checkbox from './checkbox.svelte';
+	let loading = false;
 	const pb = new PocketBase(env.PUBLIC_POCKETBASE_URL);
 	async function oauthLogin(method: OAuth2AuthConfig['provider']) {
-		const resp = await pb.collection('users').authWithOAuth2({
-			provider: method
-		});
-		pb.authStore.save(resp.token, resp.record);
-		await fetch('', {
-			method: 'POST',
-			body: JSON.stringify(resp)
-		});
-		await invalidate(DependKeys.AUTH);
+		try {
+			loading = true;
+			const resp = await pb.collection('users').authWithOAuth2({
+				provider: method
+			});
+			pb.authStore.save(resp.token, resp.record);
+			await fetch('', {
+				method: 'POST',
+				body: JSON.stringify(resp)
+			});
+			await invalidate(DependKeys.AUTH);
+		} finally {
+			loading = false;
+		}
 	}
 	const auth_methods = pb
 		.collection('users')
@@ -45,6 +51,8 @@
 					type="button"
 					variant="outlined"
 					class="flex items-center justify-center gap-2 mb-5"
+					{loading}
+					disabled={loading}
 				>
 					<img class="w-[25px] h-[25px]" src="/icons/google.png" alt="" />
 					Sign in with Google
@@ -56,7 +64,7 @@
 				</div>
 				<Input
 					required
-					class="mb-9"
+					class="mb-2"
 					type="text"
 					name="email"
 					id="email"
@@ -84,7 +92,7 @@
 						>forgot password?</a
 					>
 				</div>
-				<Button>Continue</Button>
+				<Button {loading} disabled={loading}>Continue</Button>
 			</form>
 		</div>
 		<div class="flex-1 hidden lg:block">
