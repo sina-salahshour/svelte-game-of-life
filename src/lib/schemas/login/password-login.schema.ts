@@ -8,6 +8,7 @@ const passwordLoginSchema = z.object({
 		.regex(
 			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
 			'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character'
-		)
+		),
+	remember_me: z.boolean()
 });
 export default passwordLoginSchema;

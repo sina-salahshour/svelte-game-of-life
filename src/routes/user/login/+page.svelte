@@ -41,7 +41,6 @@
 		.then((resp) => resp.authProviders.map((provider) => provider.name));
 </script>
 
-<SuperDebug data={$form} />
 <div class="w-full min-h-[100dvh] bg-black bg-opacity-80 flex items-center justify-center">
 	<section
 		class="flex w-full h-full 3xl:min-h-[auto] min-h-[100dvh] 3xl:h-[100dvh] bg-black 3xl:max-w-[1440px] 3xl:max-h-[1020px] 3xl:rounded-lg 3xl:overflow-hidden"
@@ -93,7 +92,12 @@
 				/>
 				<div class="flex justify-between w-full mb-3">
 					<div class="flex items-center justify-center">
-						<Checkbox class="mr-2 cursor-pointer peer" name="remember" id="remember" />
+						<Checkbox
+							class="mr-2 cursor-pointer peer"
+							name="remember"
+							id="remember"
+							bind:checked={$form.remember_me}
+						/>
 						<label
 							class="text-[#3B3A3A] text-[15px] leading-[18px] cursor-pointer hover:text-opacity-70 peer-hover:text-opacity-70 transition"
 							for="remember">Remember me</label
