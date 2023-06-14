@@ -5,7 +5,6 @@
 	export let value = '';
 	export let name = '';
 	export let id = '';
-	export let type: HTMLInputElement['type'] = 'text';
 	export let placeholder = '';
 	export { className as class };
 	export let required = false;
@@ -14,9 +13,9 @@
 
 <div class={classNames(className, 's-wrapper')}>
 	<input
+		bind:value
 		class={'s-input'}
-		{type}
-		{value}
+		type="text"
 		{name}
 		{id}
 		{placeholder}
@@ -33,7 +32,7 @@
 
 <style lang="postcss">
 	.s-wrapper {
-		@apply w-full pb-[27px] relative;
+		@apply w-full min-h-[97px] relative;
 	}
 	.s-input {
 		@apply p-5 bg-[#1B1B1B] rounded-xl border-[#3B3A3A3A] border-[1px] w-full outline-none transition;
@@ -47,7 +46,7 @@
 		}
 	}
 	.s-error {
-		@apply text-[#FD2D2D] font-medium text-sm leading-[17px] mt-[10px] absolute bottom-0 flex gap-[6px];
+		@apply text-[#FD2D2D] font-medium text-sm leading-[17px] mt-[10px] bottom-0 flex gap-[6px];
 	}
 	.s-error-icon {
 		@apply w-4 h-4;

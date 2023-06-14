@@ -4,9 +4,19 @@
 	import { invalidate } from '$app/navigation';
 	import { DependKeys } from '$lib/configs/depend-keys';
 	import Button from './button.svelte';
-	import { enhance } from '$app/forms';
 	import Input from './input.svelte';
 	import Checkbox from './checkbox.svelte';
+	import type { PageData } from './$types';
+	import { superForm } from 'sveltekit-superforms/client';
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import passwordLoginSchema from '$lib/schemas/login/password-login.schema';
+
+	export let data: PageData;
+
+	const { form, enhance, errors } = superForm(data.form, {
+		validators: passwordLoginSchema
+	});
+
 	let loading = false;
 	const pb = new PocketBase(env.PUBLIC_POCKETBASE_URL);
 	async function oauthLogin(method: OAuth2AuthConfig['provider']) {
@@ -31,6 +41,7 @@
 		.then((resp) => resp.authProviders.map((provider) => provider.name));
 </script>
 
+<SuperDebug data={$form} />
 <div class="w-full min-h-[100dvh] bg-black bg-opacity-80 flex items-center justify-center">
 	<section
 		class="flex w-full h-full 3xl:min-h-[auto] min-h-[100dvh] 3xl:h-[100dvh] bg-black 3xl:max-w-[1440px] 3xl:max-h-[1020px] 3xl:rounded-lg 3xl:overflow-hidden"
@@ -65,18 +76,20 @@
 				<Input
 					required
 					class="mb-2"
-					type="text"
 					name="email"
 					id="email"
 					placeholder="Enter your username"
+					bind:value={$form.email}
+					error={$errors.email?.join(' ')}
 				/>
 				<Input
 					required
 					class="mb-8"
-					type="password"
 					name="password"
 					id="password"
 					placeholder="Password"
+					bind:value={$form.password}
+					error={$errors.password?.join(' ')}
 				/>
 				<div class="flex justify-between w-full mb-3">
 					<div class="flex items-center justify-center">
