@@ -7,7 +7,7 @@
 
 <slot />
 
-<style lang="postcss">
+<style lang="postcss" global>
 	body {
 		@apply antialiased;
 	}
