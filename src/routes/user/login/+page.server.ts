@@ -7,7 +7,6 @@ import routes from '$lib/configs/routes';
 
 import { setError, superValidate } from 'sveltekit-superforms/server';
 import passwordLoginSchema from '$lib/schemas/login/password-login.schema';
-import { invalidate } from '$app/navigation';
 
 export const actions = {
 	oauth_login: async (event) => {
