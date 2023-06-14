@@ -91,7 +91,7 @@
 				/>
 				<PasswordInput
 					required
-					class="mb-8"
+					class="mb-2"
 					name="password"
 					id="password"
 					placeholder="Password"
