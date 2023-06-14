@@ -9,6 +9,7 @@
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import passwordLoginSchema from '$lib/schemas/login/password-login.schema';
+	import PasswordInput from './password-input.svelte';
 
 	export let data: PageData;
 
@@ -81,7 +82,7 @@
 					bind:value={$form.email}
 					error={$errors.email?.join(' ')}
 				/>
-				<Input
+				<PasswordInput
 					required
 					class="mb-8"
 					name="password"
