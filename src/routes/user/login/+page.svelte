@@ -26,7 +26,7 @@
 				provider: method
 			});
 			pb.authStore.save(resp.token, resp.record);
-			await fetch('', {
+			await fetch('?/oauth_login', {
 				method: 'POST',
 				body: JSON.stringify(resp)
 			});
