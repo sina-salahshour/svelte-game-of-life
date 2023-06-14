@@ -68,6 +68,17 @@
 					<img class="w-[25px] h-[25px]" src="/icons/google.png" alt="" />
 					Sign in with Google
 				</Button>
+				<Button
+					on:click={() => oauthLogin('github')}
+					type="button"
+					variant="outlined"
+					class="flex items-center justify-center gap-2 mb-5"
+					{loading}
+					disabled={loading}
+				>
+					<img class="w-[25px] h-[25px]" src="/icons/github.png" alt="" />
+					Sign in with Github
+				</Button>
 				<div class="mb-3 s-separator">
 					<div class="s-rail" />
 					<div class="s-text">or</div>
