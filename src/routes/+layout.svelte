@@ -6,3 +6,9 @@
 <Modal />
 
 <slot />
+
+<style lang="postcss">
+	body {
+		@apply antialiased;
+	}
+</style>

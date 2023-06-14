@@ -35,10 +35,6 @@
 			oauthLoading = false;
 		}
 	}
-	const auth_methods = pb
-		.collection('users')
-		.listAuthMethods()
-		.then((resp) => resp.authProviders.map((provider) => provider.name));
 	$: loading = oauthLoading || $submitting;
 </script>
 
