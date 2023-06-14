@@ -10,7 +10,14 @@
 	export { className as class };
 	export let required = false;
 	export let error = '';
+	const preloadImageUrls = ['/icons/toggle-visibility-visible.png'];
 </script>
+
+<svelte:head>
+	{#each preloadImageUrls as image}
+		<link rel="preload" as="image" href={image} />
+	{/each}
+</svelte:head>
 
 <div class={classNames(className, 's-wrapper')}>
 	<input

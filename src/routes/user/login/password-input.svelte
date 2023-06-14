@@ -19,8 +19,18 @@
 	function toggle_type() {
 		visible = !visible;
 	}
+	const preloadImageUrls = [
+		'/icons/toggle-visibility-visible.png',
+		'/icons/toggle-visibility-hidden.png',
+		'/icons/error.png'
+	];
 </script>
 
+<svelte:head>
+	{#each preloadImageUrls as image}
+		<link rel="preload" as="image" href={image} />
+	{/each}
+</svelte:head>
 <div class={classNames(className, 's-wrapper')}>
 	<div class="s-input-wrapper">
 		<input
