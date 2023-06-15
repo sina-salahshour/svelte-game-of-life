@@ -17,11 +17,11 @@
 		validators: passwordLoginSchema
 	});
 
-	let oauthLoading = false;
+	let oauthLoading: OAuth2AuthConfig['provider'] | boolean = false;
 	const pb = new PocketBase(env.PUBLIC_POCKETBASE_URL);
 	async function oauthLogin(method: OAuth2AuthConfig['provider']) {
 		try {
-			oauthLoading = true;
+			oauthLoading = method;
 			const resp = await pb.collection('users').authWithOAuth2({
 				provider: method
 			});
@@ -35,7 +35,7 @@
 			oauthLoading = false;
 		}
 	}
-	$: loading = oauthLoading || $submitting;
+	$: disabled = !!oauthLoading || $submitting;
 </script>
 
 <div class="w-full min-h-[100dvh] bg-black bg-opacity-80 flex items-center justify-center">
@@ -58,8 +58,8 @@
 					type="button"
 					variant="outlined"
 					class="flex items-center justify-center gap-2 mb-5"
-					{loading}
-					disabled={loading}
+					loading={oauthLoading === 'google'}
+					{disabled}
 				>
 					<img class="w-[25px] h-[25px]" src="/icons/google.png" alt="" />
 					Sign in with Google
@@ -69,8 +69,8 @@
 					type="button"
 					variant="outlined"
 					class="flex items-center justify-center gap-2 mb-5"
-					{loading}
-					disabled={loading}
+					loading={oauthLoading === 'github'}
+					{disabled}
 				>
 					<img class="w-[25px] h-[25px]" src="/icons/github.png" alt="" />
 					Sign in with Github
@@ -117,7 +117,7 @@
 						>forgot password?</a
 					>
 				</div>
-				<Button {loading} disabled={loading || !!$allErrors.length}>Continue</Button>
+				<Button loading={$submitting} disabled={disabled || !!$allErrors.length}>Continue</Button>
 			</form>
 		</div>
 		<div class="flex-1 hidden lg:block">
