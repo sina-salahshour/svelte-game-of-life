@@ -1,5 +1,5 @@
 import { redirect, type Actions, fail } from '@sveltejs/kit';
-import type { Record, RecordAuthResponse } from 'pocketbase';
+import type { ClientResponseError, Record, RecordAuthResponse } from 'pocketbase';
 import type { PageServerLoad } from './$types';
 import { StatusCodes } from 'http-status-codes';
 import { DependKeys } from '$lib/configs/depend-keys';
@@ -20,9 +20,14 @@ export const actions = {
 		}
 		try {
 			await locals.pb.collection('users').authWithPassword(form.data.email, form.data.password);
-		} catch (err) {
+		} catch (_err) {
+			const err = _err as ClientResponseError;
+
+			if (err.message === 'Failed to authenticate.') {
+				return setError(form, 'password', 'invalid email or password');
+			}
 			console.error(err);
-			return setError(form, 'password', 'invalid email or password');
+			return setError(form, '', err.message || 'an error ocurred while logging in');
 		}
 		throw redirect(StatusCodes.TEMPORARY_REDIRECT, routes.user.index);
 	}

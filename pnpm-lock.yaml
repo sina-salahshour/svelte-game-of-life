@@ -10,6 +10,9 @@ dependencies:
   pocketbase:
     specifier: ^0.15.2
     version: 0.15.2
+  svelte-french-toast:
+    specifier: 1.0.4-beta.0
+    version: 1.0.4-beta.0(svelte@3.58.0)
 
 devDependencies:
   '@sveltejs/adapter-auto':
@@ -1939,6 +1942,15 @@ packages:
       svelte: 3.58.0
     dev: true
 
+  /svelte-french-toast@1.0.4-beta.0(svelte@3.58.0):
+    resolution: {integrity: sha512-PkYNukEQAPZyV5ei+JzeYEsbaXFSbJS8/SDTdC8giYa5Atxp2SRepFnPDWx6mu7rV53g886FNLktPMLwRljkpw==}
+    peerDependencies:
+      svelte: ^3.57.0
+    dependencies:
+      svelte: 3.58.0
+      svelte-writable-derived: 3.1.0(svelte@3.58.0)
+    dev: false
+
   /svelte-hmr@0.15.1(svelte@3.58.0):
     resolution: {integrity: sha512-BiKB4RZ8YSwRKCNVdNxK/GfY+r4Kjgp9jCLEy0DuqAKfmQtpL38cQK3afdpjw4sqSs4PLi3jIPJIFp259NkZtA==}
     engines: {node: ^12.20 || ^14.13.1 || >= 16}
@@ -2010,10 +2022,17 @@ packages:
       typescript: 5.0.4
     dev: true
 
+  /svelte-writable-derived@3.1.0(svelte@3.58.0):
+    resolution: {integrity: sha512-cTvaVFNIJ036vSDIyPxJYivKC7ZLtcFOPm1Iq6qWBDo1fOHzfk6ZSbwaKrxhjgy52Rbl5IHzRcWgos6Zqn9/rg==}
+    peerDependencies:
+      svelte: ^3.2.1 || ^4.0.0-next.1
+    dependencies:
+      svelte: 3.58.0
+    dev: false
+
   /svelte@3.58.0:
     resolution: {integrity: sha512-brIBNNB76mXFmU/Kerm4wFnkskBbluBDCjx/8TcpYRb298Yh2dztS2kQ6bhtjMcvUhd5ynClfwpz5h2gnzdQ1A==}
     engines: {node: '>= 8'}
-    dev: true
 
   /sveltekit-superforms@1.0.0(@sveltejs/kit@1.15.9)(svelte@3.58.0)(zod@3.21.4):
     resolution: {integrity: sha512-FihTu/szUCF1fpmqBQUo3tYdAMaNNt7HWaRcLWCIbubG29bpPAEoucWJ8IQpjloE4sGpof1MtgvZpK7k78Bkxg==}

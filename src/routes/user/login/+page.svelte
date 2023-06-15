@@ -10,6 +10,7 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import passwordLoginSchema from '$lib/schemas/login/password-login.schema';
 	import PasswordInput from './password-input.svelte';
+	import toast from 'svelte-french-toast';
 
 	export let data: PageData;
 
@@ -36,6 +37,13 @@
 		}
 	}
 	$: disabled = !!oauthLoading || $submitting;
+	$: {
+		const globalError = $errors._errors;
+		if (globalError) {
+			toast.error(globalError.join(' '));
+		}
+	}
+	$: console.log($allErrors);
 </script>
 
 <div class="w-full min-h-[100dvh] bg-black bg-opacity-80 flex items-center justify-center">
@@ -117,7 +125,11 @@
 						>forgot password?</a
 					>
 				</div>
-				<Button loading={$submitting} disabled={disabled || !!$allErrors.length}>Continue</Button>
+				<Button
+					loading={$submitting}
+					disabled={disabled || !!$allErrors.filter((err) => err.path !== '_errors').length}
+					>Continue</Button
+				>
 			</form>
 		</div>
 		<div class="flex-1 hidden lg:block">
