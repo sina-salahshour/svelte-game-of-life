@@ -84,8 +84,14 @@
 
 	.s-toggle-visibility {
 		@apply absolute right-4 top-1/2 -translate-y-1/2;
-		&:hover {
-			@apply bg-[#242424] rounded-md;
+		.s-toggle-visibility-image {
+			@apply transition;
+			&:hover {
+				@apply invert-[.3];
+			}
+			&:active {
+				@apply invert-[.5];
+			}
 		}
 	}
 	.s-toggle-visibility-image {
