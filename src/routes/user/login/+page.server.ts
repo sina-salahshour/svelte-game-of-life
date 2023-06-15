@@ -20,10 +20,11 @@ export const actions = {
 		}
 		try {
 			await locals.pb.collection('users').authWithPassword(form.data.email, form.data.password);
-			throw redirect(StatusCodes.TEMPORARY_REDIRECT, routes.user.index);
 		} catch (err) {
+			console.error(err);
 			return setError(form, 'password', 'invalid email or password');
 		}
+		throw redirect(StatusCodes.TEMPORARY_REDIRECT, routes.user.index);
 	}
 } satisfies Actions;
 

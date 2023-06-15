@@ -83,7 +83,7 @@
 	}
 
 	.s-toggle-visibility {
-		@apply absolute right-4 top-1/2 -translate-y-1/2;
+		@apply absolute right-[20px] top-1/2 -translate-y-1/2;
 		.s-toggle-visibility-image {
 			@apply transition;
 			&:hover {
