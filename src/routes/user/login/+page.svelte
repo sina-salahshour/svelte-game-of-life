@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PocketBase, { type OAuth2AuthConfig } from 'pocketbase';
+	import PocketBase, { ClientResponseError, type OAuth2AuthConfig } from 'pocketbase';
 	import { env } from '$env/dynamic/public';
 	import { invalidate } from '$app/navigation';
 	import { DependKeys } from '$lib/configs/depend-keys';
@@ -21,20 +21,64 @@
 	let oauthLoading: OAuth2AuthConfig['provider'] | boolean = false;
 	const pb = new PocketBase(env.PUBLIC_POCKETBASE_URL);
 	async function oauthLogin(method: OAuth2AuthConfig['provider']) {
-		try {
-			oauthLoading = method;
-			const resp = await pb.collection('users').authWithOAuth2({
-				provider: method
-			});
-			pb.authStore.save(resp.token, resp.record);
-			await fetch('?/oauth_login', {
-				method: 'POST',
-				body: JSON.stringify(resp)
-			});
-			await invalidate(DependKeys.AUTH);
-		} finally {
+		await new Promise(async (resolve, reject) => {
+			try {
+				oauthLoading = method;
+				const resp = await pb.collection('users').authWithOAuth2({
+					provider: method,
+					urlCallback: (url) => {
+						if (typeof window === 'undefined' || !window?.open) {
+							throw new ClientResponseError(
+								new Error(`Not in a browser context - please pass a custom urlCallback function.`)
+							);
+						}
+
+						let width = 1024;
+						let height = 768;
+
+						let windowWidth = window.innerWidth;
+						let windowHeight = window.innerHeight;
+
+						// normalize window size
+						width = width > windowWidth ? windowWidth : width;
+						height = height > windowHeight ? windowHeight : height;
+
+						let left = windowWidth / 2 - width / 2;
+						let top = windowHeight / 2 - height / 2;
+
+						let authWindow = window.open(
+							url,
+							'oauth2-popup',
+							'width=' +
+								width +
+								',height=' +
+								height +
+								',top=' +
+								top +
+								',left=' +
+								left +
+								',resizable,menubar=no'
+						);
+						if (authWindow) {
+							authWindow.onunload = (e) => {
+								reject(e);
+							};
+						}
+					}
+				});
+				pb.authStore.save(resp.token, resp.record);
+				await fetch('?/oauth_login', {
+					method: 'POST',
+					body: JSON.stringify(resp)
+				});
+				await invalidate(DependKeys.AUTH);
+			} finally {
+				oauthLoading = false;
+				resolve(undefined);
+			}
+		}).catch((e) => {
 			oauthLoading = false;
-		}
+		});
 	}
 	$: disabled = !!oauthLoading || $submitting;
 	$: {
@@ -44,6 +88,7 @@
 		}
 	}
 	$: console.log($allErrors);
+	let count = 0;
 </script>
 
 <div class="w-full min-h-[100dvh] bg-black bg-opacity-80 flex items-center justify-center">
@@ -72,6 +117,12 @@
 					<img class="w-[25px] h-[25px]" src="/icons/google.png" alt="" />
 					Sign in with Google
 				</Button>
+				{count}
+				<button
+					on:click={() => {
+						count += 1;
+					}}>increment</button
+				>
 				<Button
 					on:click={() => oauthLogin('github')}
 					type="button"
