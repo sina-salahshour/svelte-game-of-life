@@ -88,7 +88,6 @@
 		}
 	}
 	$: console.log($allErrors);
-	let count = 0;
 </script>
 
 <div class="w-full min-h-[100dvh] bg-black bg-opacity-80 flex items-center justify-center">
@@ -117,12 +116,6 @@
 					<img class="w-[25px] h-[25px]" src="/icons/google.png" alt="" />
 					Sign in with Google
 				</Button>
-				{count}
-				<button
-					on:click={() => {
-						count += 1;
-					}}>increment</button
-				>
 				<Button
 					on:click={() => oauthLogin('github')}
 					type="button"
